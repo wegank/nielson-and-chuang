@@ -1,0 +1,93 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\setcounter{chapter}{4}
+\setcounter{section}{3}
+\setcounter{exercise}{31}
+\section{Measurement}
+
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+It seems to me that $P_m$ means $I\otimes\ket{m}\bra{m}$ in the formula to prove, so I'll simply mix the two notations without ambiguity. We have
+\[
+    \rho^\prime=\sum_m P_m\rho P_m^\dagger=\sum_m P_m\rho P_m
+\]
+
+and
+\[
+    \tr_2(\rho^\prime)=\tr_2\left(\sum_m P_m\rho P_m\right)=\sum_m\rho_1\tr\left(\rho_2 P_m^2\right)=\rho_1\tr\left(\rho_2\sum_{m}P_m\right)=\rho_1\tr\left(\rho_2\right)=\tr_2(\rho)
+\]
+\end{proof}
+
+\bigskip
+\begin{exercise}[Measurement in the Bell basis]
+\end{exercise}
+We have
+\[
+    A = \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+    & \ctrl{1} & \gate{H} & \qw \\
+    & \targ & \qw & \qw \\
+    }\end{array}
+    = (H\otimes I) \Diag(I,X)
+    = \frac{1}{\sqrt{2}}\begin{bmatrix}I&X\\I&-X\end{bmatrix}
+    = \frac{1}{\sqrt{2}}\begin{bmatrix}1&0&0&1\\0&1&1&0\\1&0&0&-1\\0&1&-1&0\end{bmatrix}
+\]
+
+So that it performs a measurement in the basis of the Bell states.
+
+For the second question, let $M_i$ be the matrix satisfying
+\[
+    (M_i)_{j k}=\begin{cases}A_{j k} & i = j\\0&i\neq j\end{cases}
+\]
+
+It is easy to check that $(M_i)_i$ correspond to the desired measurement operators, i.e.,
+
+\[
+    \{M_i^\dagger M_i\}_i = \{\ket{\beta_{j k}}\bra{\beta_{j k}}\}_{j k}
+\]
+
+\bigskip
+\begin{exercise}[Measuring an operator]
+\end{exercise}
+\begin{proof}
+We see that
+\[
+    \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+    \lstick{\ket{0}} & \gate{H} & \ctrl{1} & \gate{H} & \qw \\
+    \lstick{\ket{\psi_{\mathrm{in}}}} & \qw & \gate{U} & \qw & \qw
+    }\end{array}
+    = \frac{1}{2}\left(\ket{0}\left((1+U)\ket{\psi_\mathrm{in}}\right)+\ket{1}\left((1-U)\ket{\psi_\mathrm{in}}\right)\right)
+\]
+
+As
+\[
+    U((1+U)\ket{\psi_\mathrm{in}}) = 1\cdot((1+U)\ket{\psi_\mathrm{in}})
+\]
+\[
+    U((1-U)\ket{\psi_\mathrm{in}}) = -1\cdot((1-U)\ket{\psi_\mathrm{in}})
+\]
+
+We find that $\ket{\psi_{\mathrm{out}}}$ is indeed an eigenvector.
+\end{proof}
+
+\bigskip
+\begin{exercise}[Measurement commutes with controls]
+\end{exercise}
+\begin{proof}
+We have
+\begin{align*}
+    \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+    \lstick{\alpha\ket{0}+\beta\ket{1}} & \meter & \cctrl{1} & \\
+    \lstick{\ket{\psi}} & \qw & \gate{U} & \qw
+    }\end{array} 
+    = \alpha\ket{\psi} + \beta U \ket{\psi} 
+    = \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+    & \ctrl{1} & \meter \\
+    & \gate{U} & \qw & \qw
+    }\end{array}
+\end{align*}
+
+So that we can defer the measurement.
+\end{proof}
+\end{document}

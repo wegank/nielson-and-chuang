@@ -1,0 +1,399 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\setcounter{chapter}{4}
+\setcounter{section}{2}
+\setcounter{exercise}{15}
+\section{Controlled operations}
+
+\begin{exercise}
+\end{exercise}
+We have
+\[
+    \begin{array}{c}
+        \Qcircuit @C=1em @R=.7em {
+        \lstick{x_2} & \gate{H} & \qw \\
+        \lstick{x_1} & \qw & \qw
+        }
+    \end{array}
+    = I \otimes H
+    = \begin{bmatrix} H & 0 \\ 0 & H \end{bmatrix}
+    = \frac{1}{\sqrt{2}}\begin{bmatrix} 1&1&0&0\\1&-1&0&0\\0&0&1&1\\0&0&1&-1 \end{bmatrix}
+\]
+
+and
+\[
+    \begin{array}{c}
+        \Qcircuit @C=1em @R=.7em {
+        \lstick{x_2} & \qw & \qw \\
+        \lstick{x_1} & \gate{H} & \qw
+        } 
+    \end{array}
+    = H \otimes I
+    = \frac{1}{\sqrt{2}}\begin{bmatrix} I & I \\ I & -I \end{bmatrix}
+    = \frac{1}{\sqrt{2}}\begin{bmatrix} 1&0&1&0\\0&1&0&1\\1&0&-1&0\\0&1&0&-1 \end{bmatrix}
+\]
+
+\bigskip
+\begin{exercise}[Building $\CNOT$ from controlled-$Z$ gates]
+\end{exercise}
+We have
+\begin{align*}
+    \CNOT 
+    &= \begin{bmatrix}I&0\\0&X\end{bmatrix}
+    = \begin{bmatrix}H I H&0\\0&H Z H\end{bmatrix}
+    = \begin{bmatrix}H&0\\0&H\end{bmatrix}\begin{bmatrix}I&0\\0&Z\end{bmatrix}\begin{bmatrix}H&0\\0&H\end{bmatrix} \\
+    &= (I\otimes H)\ \Diag(I,Z)\ (I\otimes H) \\
+    &= \begin{array}{c}
+        \Qcircuit @C=1em @R=.7em {&\qw&\ctrl{1}&\qw&\qw\\&\gate{H}&\gate{Z}&\gate{H}&\qw}
+    \end{array}
+\end{align*}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We have
+\begin{align*}
+    \begin{array}{c}
+        \Qcircuit @C=1em @R=.7em {&\ctrl{1}&\qw\\&\gate{Z}&\qw}
+    \end{array}
+    = \Diag(I,Z)
+    = \begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&-1\end{bmatrix}
+\end{align*}
+
+and
+\begin{align*}
+    \begin{array}{c}
+        \Qcircuit @C=1em @R=.7em {&\gate{Z}&\qw\\&\ctrl{-1}&\qw}
+    \end{array}
+    = \begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&1&0\\0&0&0&-1\end{bmatrix}
+\end{align*}
+
+So there's no difference.
+\end{proof}
+
+\bigskip
+\begin{exercise}[$\CNOT$ action on density matrices]
+\end{exercise}
+Let $\rho\in M_{4,4}(\mathbb{R})$ be a density matrix and $U=\CNOT$, we simply have
+\[
+    U\rho\ U^\dagger 
+    = \begin{bmatrix}
+    \rho_{11} & \rho_{12} & \rho_{14} & \rho_{13} \\
+    \rho_{21} & \rho_{22} & \rho_{24} & \rho_{23} \\
+    \rho_{41} & \rho_{42} & \rho_{44} & \rho_{43} \\
+    \rho_{31} & \rho_{32} & \rho_{34} & \rho_{33}
+    \end{bmatrix}
+\]
+
+Which is indeed a rearrangement of $\rho$.
+
+\bigskip
+\begin{exercise}[$\CNOT$ basis transformations]
+\end{exercise}
+\begin{enumerate}
+    \item
+    \begin{proof}
+    We have
+    \begin{align*}
+        \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \gate{H} & \ctrl{1} & \gate{H} & \qw \\
+        & \gate{H} & \targ & \gate{H} & \qw
+        }\end{array}
+        &= (H\otimes H)\ \Diag(I,Z)\ (H\otimes H) \\
+        &= \frac{1}{2}\begin{bmatrix}H&H\\H&-H\end{bmatrix}\begin{bmatrix}I&0\\0&X\end{bmatrix}\begin{bmatrix}H&H\\H&-H\end{bmatrix} \\
+        &= \frac{1}{2}\begin{bmatrix}I+Z&I-Z\\I-Z&I+Z\end{bmatrix}
+        = \begin{bmatrix}1&0&0&0\\0&0&0&1\\0&0&1&0\\0&1&0&0\end{bmatrix}
+    \end{align*}
+    
+    and
+    \begin{align*}
+        \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \targ & \qw \\
+        & \ctrl{-1} & \qw \\
+        }\end{array}
+        = \begin{bmatrix}1&0&0&0\\0&0&0&1\\0&0&1&0\\0&1&0&0\end{bmatrix}
+    \end{align*}
+    
+    So that the two circuits are identical.
+    \end{proof}
+    
+    \item
+    \begin{proof}
+    Let $U$ be the matrix of the change of basis. We observe that
+    \[
+        U = \frac{1}{2}\begin{bmatrix}1&1&1&1\\1&1&-1&-1\\1&-1&1&-1\\1&-1&-1&1\end{bmatrix}
+    \]
+    
+    and
+    \[
+        U \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \targ & \qw \\
+        & \ctrl{-1} & \qw \\
+        }\end{array} U^\dagger = 
+        \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \targ & \qw \\
+        & \ctrl{-1} & \qw \\
+        }\end{array}
+    \]
+    
+    Which is exactly what we expected.
+    \end{proof}
+\end{enumerate}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We have
+\begin{align*}
+    &\begin{array}{c}\Qcircuit @C=1em @R=.7em {
+    & \qw & \ctrl{1} & \qw & \ctrl{1} & \ctrl{2} & \qw \\
+    & \ctrl{1} & \targ & \ctrl{1} & \targ & \qw & \qw \\
+    & \gate{V} & \qw & \gate{V^\dagger} & \qw & \gate{V} & \qw
+    }\end{array} \\
+    &= (\Diag(I,I,V,V))(\Diag(I,X)\otimes I)(I\otimes \Diag(I,V^\dagger))(\Diag(I,X)\otimes I)(I\otimes \Diag(I,V)) \\
+    &= \cdots
+    = \begin{pmatrix}I&0&0&0\\0&I&0&0\\0&0&I&0\\0&0&0&U\end{pmatrix}
+    = C^2(U)
+\end{align*}
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+Let $V=e^{i\alpha}A X B X C$ and $D^{\pm}=\Diag(1,e^{\pm i\alpha})$. We have
+\begin{align*}
+    C^2(U)
+    &= \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+    & \qw & \qw & \qw & \qw & \ctrl{1} & \qw & \qw & \qw & \ctrl{1} & \ctrl{2} & \qw & \ctrl{2} & \gate{D^+} & \qw \\
+    & \qw & \ctrl{1} & \gate{D^+} & \ctrl{1} & \targ & \ctrl{1} & \gate{D^-} & \ctrl{1} & \targ & \qw & \qw & \qw & \qw & \qw \\
+    & \gate{C} & \targ & \gate{B} & \targ & \qw & \targ & \gate{B^\dagger} & \targ & \qw & \targ & \gate{B} & \targ & \gate{A} & \qw 
+    }\end{array} \\
+    &= \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+    & \qw & \qw & \qw & \ctrl{1} & \ctrl{2} & \qw & \ctrl{1} & \qw & \qw & \ctrl{2} & \gate{D^+} & \qw \\
+    & \qw & \ctrl{1} & \gate{D^+} & \targ & \qw & \gate{D^-} & \targ & \ctrl{1} & \qw & \qw & \qw & \qw \\
+    & \gate{C} & \targ & \gate{B} & \qw & \targ & \gate{B^\dagger} & \qw & \targ & \gate{B} & \targ & \gate{A} & \qw 
+    }\end{array} 
+\end{align*}
+
+which contains 8 single qubit gates and 6 $\CNOT$s.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{enumerate}
+    \item In the case where $U=R_x(\theta)$, we have $\alpha=0$, $\beta=-\frac{\pi}{2}$, $\gamma=\theta$ and $\delta=\frac{\pi}{2}$, along with
+    \[
+        A=\begin{bmatrix}e^{\frac{i\pi}{4}} \cos\frac{\theta}{4} & -e^{\frac{i\pi}{4}} \sin\frac{\theta}{4} \\ e^{-\frac{i\pi}{4}} \sin\frac{\theta}{4} & e^{-\frac{i\pi}{4}} \cos \frac{\theta}{4} \end{bmatrix},
+        B=R_y\left(-\frac{\theta}{2}\right), C=R_z\left(\frac{\theta}{2}\right)
+    \]
+    So we actually need 3 single qubit gates and 2 controlled-$\NOT$ gates.
+    
+    \item In the case where $U=R_y(\theta)$, we have $\alpha=\beta=\delta=0$ and $\gamma=\theta$, with
+    \[
+        A=R_y\left(\frac{\theta}{2}\right), B=R_y\left(-\frac{\theta}{2}\right), C=I
+    \]
+    Since $C$ can be removed, we only need 2 single qubit gates and 2 controlled-$\NOT$ gates.
+\end{enumerate}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We have
+\begin{align*}
+    &\begin{array}{c}\Qcircuit @C=1em @R=.7em {
+    & \qw & \qw & \qw & \ctrl{2} & \qw & \qw & \qw & \ctrl{2} & \qw & \ctrl{1} & \qw & \ctrl{1} & \gate{T} & \qw \\
+    & \qw & \ctrl{1} & \qw & \qw & \qw & \ctrl{1} & \qw & \qw & \gate{T^\dagger} & \targ & \gate{T^\dagger} & \targ & \gate{S} & \qw \\
+    & \gate{H} & \targ & \gate{T^\dagger} & \targ & \gate{T} & \targ & \gate{T^\dagger} & \targ & \gate{T} & \gate{H} & \qw & \qw & \qw & \qw 
+    }\end{array} \\
+    &= \cdots \\
+    &= \begin{aligned}[t]
+        &(\Diag(I,i I,e^{\frac{i\pi}{4}}I, i e^{\frac{i\pi}{4}}I)) \cdot (\Diag(I,X)\otimes I) \\
+        &\cdot (\Diag(H,e^{-\frac{i\pi}{4}}H,H,e^{-\frac{i\pi}{4}}H)) \cdot (\Diag(I,X)\otimes I)  \\
+        &\cdot (\Diag(H, e^{-\frac{i\pi}{4}}H, H, e^{-\frac{i\pi}{4}}T X T^\dagger X T X T^\dagger X H)) \\
+    \end{aligned} \\
+    &= \Diag(I, I, I, i H T X T^\dagger X T X T^\dagger X H) 
+    = \Diag(I, I, I, X)
+    = \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+    & \ctrl{1} & \qw \\
+    & \ctrl{1} & \qw  \\
+    & \targ & \qw
+    }\end{array} 
+\end{align*}
+
+where we use the fact that $X T^\dagger X = e^{-\frac{i\pi}{4}}T$ to obtain
+\[
+    i H T X T^\dagger X T X T^\dagger X H
+    = H T^4 H = H Z H = X
+\]
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{enumerate}
+    \item We see that
+    \[
+        \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \ctrl{1} & \qw \\
+        & \qswap & \qw \\
+        & \qswap \qwx & \qw
+        }\end{array}
+        =
+        \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \ctrl{1} & \ctrl{1} & \ctrl{1} & \qw \\
+        & \targ & \ctrl{1} & \targ & \qw \\
+        & \ctrl{-1} & \targ & \ctrl{-1} & \qw
+        }\end{array}
+    \]
+    
+    \item
+    \begin{proof} 
+    It is obvious that
+    \[
+        \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \ctrl{1} & \ctrl{1} & \ctrl{1} & \qw \\
+        & \targ & \ctrl{1} & \targ & \qw \\
+        & \ctrl{-1} & \targ & \ctrl{-1} & \qw
+        }\end{array}
+        =
+        \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \qw & \ctrl{1} & \qw & \qw \\
+        & \targ & \ctrl{1} & \targ & \qw \\
+        & \ctrl{-1} & \targ & \ctrl{-1} & \qw
+        }\end{array}
+    \]
+    \end{proof}
+    
+    \item
+    We have
+    \begin{align*}
+        \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \qw & \ctrl{1} & \qw & \qw \\
+        & \targ & \ctrl{1} & \targ & \qw \\
+        & \ctrl{-1} & \targ & \ctrl{-1} & \qw
+        }\end{array}
+        &= \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \qw & \qw & \ctrl{1} & \qw & \ctrl{1} & \ctrl{2} & \qw & \qw \\
+        & \targ & \ctrl{1} & \targ & \ctrl{1} & \targ & \qw & \targ & \qw \\
+        & \ctrl{-1} & \gate{V} & \qw & \gate{V^\dagger} & \qw & \gate{V} & \ctrl{-1} & \qw
+        }\end{array} \\
+        &= \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \qw & \ctrl{1} & \qw & \ctrl{1} & \ctrl{2} & \qw & \qw \\
+        & \multigate{1}{A} & \targ & \ctrl{1} & \targ & \qw & \targ & \qw \\
+        & \ghost{A} & \qw & \gate{V^\dagger} & \qw & \gate{V} & \ctrl{-1} & \qw
+        }\end{array}
+    \end{align*}
+    
+    Which uses 6 two-qubit gates.
+    
+    \item
+    We have \cite{PMID:9913201}
+    \begin{align*}
+        \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \qw & \ctrl{1} & \qw & \ctrl{1} & \ctrl{2} & \qw & \qw \\
+        & \multigate{1}{A} & \targ & \ctrl{1} & \targ & \qw & \targ & \qw \\
+        & \ghost{A} & \qw & \gate{V^\dagger} & \qw & \gate{V} & \ctrl{-1} & \qw
+        }\end{array}
+        &= \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \qw & \ctrl{2} & \ctrl{1} & \qw & \qw & \ctrl{1} & \qw \\
+        & \multigate{1}{A} & \qw & \targ & \ctrl{1} & \targ & \targ & \qw \\
+        & \ghost{A} & \gate{V} & \qw & \gate{V^\dagger} & \ctrl{-1} & \qw & \qw
+        }\end{array} \\
+        &= \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \qw & \ctrl{2} & \ctrl{1} & \qw &\ctrl{1} & \qw \\
+        & \multigate{1}{A} & \qw & \targ & \multigate{1}{B} & \targ & \qw \\
+        & \ghost{A} & \gate{V} & \qw & \ghost{B} & \qw & \qw
+        }\end{array}
+    \end{align*}
+    
+    Which uses 5 two-qubit gates.
+\end{enumerate}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+It seems that $\frac{\pi}{}$ should be $\frac{\pi}{4}$, so that
+
+\begin{align*}
+    &\begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \qw & \qw & \qw & \ctrl{2} & \qw & \qw & \qw & \qw \\
+        & \qw & \ctrl{1} & \qw & \qw & \qw & \ctrl{1} & \qw & \qw \\
+        & \gate{R_y(\frac{\pi}{4})} & \targ & \gate{R_y(\frac{\pi}{4})} & \targ & \gate{R_y(-\frac{\pi}{4})} & \targ & \gate{R_y (-\frac{\pi}{4})} & \qw
+    }\end{array} \\
+    &= \cdots \\
+    &= \Diag(I,I,R_y(-\frac{\pi}{2}) X R_y(\frac{\pi}{2}),R_y(-\frac{\pi}{4}) X R_y(-\frac{\pi}{4}) X R_y(\frac{\pi}{4}) X R_y(\frac{\pi}{4})) \\
+    &= \Diag(I,I,Z,X) = \Diag(1,1,1,1,1,1,-1,1) C^2(X)
+\end{align*}
+
+So that the circuit differs from a Toffoli gate only by relative phases.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+
+We have
+\begin{align*}
+    M
+    &=\left(\ket{000}\right)\left(\ket{001},\ket{010},\ket{011},\ket{100},\ket{101},\ket{110},\ket{111}\right) \\
+    &= \begin{aligned}
+        &(\ket{001},\ket{010})\cdot(\ket{010},\ket{011})\cdot(\ket{011},\ket{101}) \\
+        &\cdot(\ket{101},\ket{100})\cdot(\ket{011},\ket{101})\cdot(\ket{100},\ket{101})\cdot(\ket{101},\ket{110})\cdot(\ket{110},\ket{111})
+    \end{aligned} \\
+    &= \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \ctrl{1} & \ctrl{1} & \qw & \ctrl{1} & \qw & \qswap & \qw & \ctrl{1} & \qw & \qswap & \gate{X} & \ctrl{1} & \ctrl{1} & \gate{X} & \qw \\
+        & \ctrl{1} & \qswap & \gate{X} & \ctrl{1} & \gate{X} & \qswap \qwx & \gate{X} & \ctrl{1} & \gate{X} & \qswap \qwx & \qw & \ctrl{1} & \qswap & \qw & \qw \\
+        & \targ & \qswap \qwx & \qw & \targ & \qw & \ctrl{-1} & \qw & \targ & \qw & \ctrl{-1} & \qw & \targ & \qswap \qwx & \qw & \qw
+    }\end{array} 
+\end{align*}
+
+Which contains just $X$s, $\CNOT$s, Toffoli gates and Fredkin gates. 
+
+Furthermore, we can continue to decompose Fredkin gates into $\CNOT$s and Toffoli gates, according to Exercise 4.25, and $X$s are simply $\CNOT$s controlled by a work qubit $\ket{1}$.
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+Inspired from Figure 4.8, we can actually construct a $C^5(U)$ gate using $C^4$ gates, as
+\[
+    \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \ctrl{1} & \qw \\
+        & \ctrl{1} & \qw \\
+        & \ctrl{1} & \qw \\
+        & \ctrl{1} & \qw \\
+        & \gate{U} & \qw
+    }\end{array} 
+    = 
+    \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+        & \qw & \ctrl{1} & \qw & \ctrl{1} & \ctrl{1} & \qw \\
+        & \qw & \ctrl{1} & \qw & \ctrl{1} & \ctrl{1} & \qw \\
+        & \qw & \ctrl{1} & \qw & \ctrl{1} & \ctrl{2} & \qw \\
+        & \ctrl{1} & \targ & \ctrl{1} & \targ & \qw & \qw \\
+        & \gate{V} & \qw & \gate{V^\dagger} & \qw & \gate{V} & \qw
+    }\end{array} 
+\]
+
+And similarly, $C^4(V)$ can be reduced to a combination of $C^3$ gates, etc... Until we finally come to a circuit representation using only $C^1$ gates, which this page is too small to contain.
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+It is just a special case of Exercise 4.30.
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+Barenco's paper \cite{Barenco_1995} proved that a $C^n(X)$ gate with 1 work qubit can be built using $O(n)$ Toffoli, $\CNOT$ and single qubit gates. According to Exercise 4.28, a $C^n(U)$ gate can be therefore built using $O(n)$ basic gates and a $C^{n-1}(V)$ gate, so a number of $O(n^2)$ gates suffices.
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+Trivial but tedious.
+\end{document}

@@ -1,0 +1,82 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper]{geometry}
+\usepackage{biblatex}
+\addbibresource{res.bib}
+\usepackage{authblk}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{dsfont}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+\usepackage{float} 
+\usepackage{subfigure}
+\usepackage{braket}
+\usepackage{qcircuit}
+
+\usepackage{tabto}
+\usepackage{enumitem}
+\usepackage[nobreak=true]{mdframed}
+
+\usepackage{subfiles}
+
+
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[chapter]
+\newtheorem{problem}{Problem}[chapter]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\DeclareMathOperator{\lcm}{lcm}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\Diag}{\mathrm{Diag}}
+\newcommand{\Sch}{\mathrm{Sch}}
+\newcommand{\NOT}{\textsc{NOT}}
+\newcommand{\CNOT}{\textsc{CNOT}}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+
+\title{QCQI Worksheet}
+\author[1]{Weijia Wang}
+\affil[1]{Department of Mathematics, Sorbonne University}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\setcounter{chapter}{1}
+\chapter{Introduction to quantum mechanics}
+
+\subfile{week04/2.4}
+
+\newpage
+\subfile{week05/2.5}
+\newpage
+\subfile{week05/2.6}
+
+\setcounter{chapter}{3}
+\chapter{Quantum circuits}
+
+\subfile{week05/4.2}
+
+\newpage
+\subfile{week06/4.3}
+\newpage
+\subfile{week06/4.4}
+
+\chapter{The quantum Fourier transform and its applications}
+\subfile{week09/5.1}
+\newpage
+\subfile{week09/5.2}
+
+\newpage
+\subfile{week10/5.3}
+\newpage
+\subfile{week10/5.4}
+\printbibliography
+
+\end{document}

@@ -1,0 +1,184 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\setcounter{chapter}{5}
+\setcounter{section}{2}
+\setcounter{exercise}{9}
+\section{Applications: order-finding and factoring}
+\subsection{Application: order-finding}
+
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+Trivial.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+By Lagrange's theorem, we have $r=\lvert x\rvert\leq\lvert\mathbb{Z}_N^*\rvert\leq N$.
+\end{proof}
+\begin{proof}[Proof (Elemental)]
+Consider the set $E=\bigcup_{r=0}^N\{x^r\}$. Since $\lvert E\rvert=N+1>N$, there exist two integers $0\leq\alpha<\beta\leq N$ such that $x^\alpha\equiv x^\beta\Mod{N}$. We have $r\leq\beta-\alpha\leq N$.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+For all $(y,y^\prime)\in(\{0,1\}^L)^2$, we have
+\[
+    \braket{x y^\prime\Mod{n}\vert x y\Mod{n}}=\braket{y^\prime\Mod{n}\vert y\Mod{n}}=\braket{y^\prime\vert y}=\delta_{y y^\prime}
+\]
+
+So $U$ is unitary.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We have
+\begin{align*}
+    \frac{1}{\sqrt{r}}\sum_{s=0}^{r-1}e^{\frac{2\pi i s k}{r}}\ket{u_s}
+    &= \frac{1}{r}\sum_{s=0}^{r-1}\sum_{k^\prime=0}^{r-1}e^{\frac{2\pi i(k-k^\prime)s}{r}}\ket{x^k\Mod{N}} \\
+    &= \frac{1}{r}\sum_{k^\prime=0}^{r-1}r\delta_{k k^\prime}\ket{x^k\Mod{N}} = \ket{x^k\Mod{N}}
+\end{align*}
+
+and
+\[
+    \frac{1}{\sqrt{r}}e^{-\frac{2\pi i s k}{r}}\ket{u_s}=\ket{x^0\Mod{N}}=\ket{1}
+\]
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We observe that
+\[
+    \ket{\varphi}=\sum_{j=0}^{2^t-1}\ket{j}\ket{x^j\Mod{N}}=\sum_{j=0}^{2^t-1}V\ket{j}\ket{0}
+\]
+
+In addition, we have
+\begin{itemize}
+    \item $\ket{j}\mapsto\ket{x^j\Mod{N}}$ is in $O(L^3)$. (Box 5.2)
+    \item $\ket{x^j\Mod{N}}\ket{k}\mapsto\ket{k+x^j\Mod{N}}\ket{k}$ is in $O(L)$. (3.2.5)
+\end{itemize}
+
+So that $V$ is in $O(L^3)$.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{enumerate}
+    \item \begin{proof}
+    The first statement is trivial under prime factorization.
+    \end{proof}
+    \item \begin{proof}
+    We show that $\gcd$ is in $O(L^2)$. 
+    
+    Following the proof on Page 629, we note as $k_i=\lfloor\log_2 r_i\rfloor+1$ number of digits of $r_i$. Since $(r_i)_i$ is decreasing and $r_{i+1}\leq \frac{r_i}{2}$, for every eligible $i$, we have
+    \[
+        k_{i+1}\leq k_i
+    \]
+    \[
+        k_{i+2}\leq k_i-1
+    \]
+    
+    Since a schoolbook long division of $m$-bit by $n$-bit requires at most $(m-n+1)n+O(\max(m,n))$ binary operations, the number of operations in the Euclid's algorithm is bounded by
+    \[
+        \sum_{i}(k_{i-1}-k_i+1)k_i\leq\sum_i(k_{i-2}-k_{i+2})k_i\leq 4k_0^2\in O(L^2)
+    \]
+    with its remainder
+    \[
+        O(\sum_{i}\max(k_{i-1},k_i))\subset O(\sum_i L)=O(L\log(L))
+    \]
+    
+    It is therefore immediate to prove that $\lcm$ is in $O(L^3)$.
+    \end{proof}
+\end{enumerate}
+\begin{remark}
+The proof on Page 629 shows that $\gcd$ is in $O(L^3)$.
+\end{remark}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We have $\forall x\geq2$:
+\[
+    -\frac{2}{3x^2}+\int_{x}^{x+1}\frac{1}{y^2}d y=\frac{2x-1}{3x^2(1+x)}\geq0
+\] 
+
+Therefore,
+\[
+    \sum_q\frac{1}{q^2}\leq\sum_{x=2}^{+\infty}\frac{1}{x^2}\leq\frac{3}{2}\int_2^{+\infty}\frac{1}{y^2}d y=\frac{3}{4}
+\]
+\end{proof}
+
+\subsection{Application: factoring}
+\begin{exercise}
+\end{exercise}
+\begin{enumerate}
+    \item \begin{proof}
+    The case $a=1$ is trivial; otherwise, if $a>1$, we have
+    \[
+        b=\log_a N=\frac{\log_2 N}{\log_2 a}\leq\frac{L}{\log_2 a}\leq L
+    \]
+    \end{proof}
+    \item \begin{proof}
+    Let $n\leq L$ be the number of digits of precision, we have
+    \begin{itemize}
+        \item $y=\log_2 N$ is in $O(M(n)n^\frac{1}{2})$ by Taylor series expansion with repeated squaring, which is in $O(L^{\frac{3}{2}+\varepsilon})$ since $M\in O(n^{1+\varepsilon})$ under the Schönhage–Strassen algorithm.
+        \item $x=\frac{y}{b}$ is in $O(\log^2(L))$.
+        \item $2^x$ is in $O(M(n)n^\frac{1}{2})\subset O(L^{\frac{3}{2}+\varepsilon})$.
+        \item $u_1$ and $u_2$ are in $O(L)$.
+    \end{itemize} 
+    
+    Therefore, it takes at most $O(L^2)$ operations.
+    \end{proof}
+    
+    \item \begin{proof}
+    Again, we have
+    \begin{itemize}
+        \item $u_1^b$ and $u_2^b$ are in $O(M(n)n^\frac{1}{2})\subset O(L^{\frac{3}{2}+\varepsilon})$.
+        \item Check if either is equal to $N$ is in $O(L)$.
+    \end{itemize} 
+    
+    Hence, it also takes at most $O(L^2)$ operations.
+    \end{proof}
+    
+    \item The algorithm is as follows:
+    \begin{itemize}
+        \item For each integer $b$ between $1$ and $L$:
+        \begin{itemize}
+            \item Let $x=\frac{\log_2 N}{b}$, $u_1=\lfloor 2^x\rfloor$ and $u_2=\lceil 2^x\rceil$.
+            \item If $u_1^b=N$, return $u_1$ and $b$; if $u_2^b=N$, return $u_2$ and $b$.
+        \end{itemize}
+        \item If there's no early return, the algorithm fails,
+    \end{itemize}
+    
+    Since the inner loop is executed $L$ times, the algorithm is simply in $O(L^3)$.
+\end{enumerate}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+Steps 1 and 2 are passed since $N$ is odd and is not a non-trivial power. 
+
+We have $r=6$ and $x^3\Mod{91}=64$, which is non-trivial. 
+
+We have $\gcd(64-1,91)=7$, which is a non-trivial factor of $91$.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+Trivial.
+\end{proof}
+\end{document}

@@ -1,0 +1,132 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\setcounter{chapter}{2}
+\setcounter{section}{5}
+\section{EPR and the Bell inequality}
+
+\begin{problem}[Functions of the Pauli matrices]
+\end{problem}
+
+\begin{proof}
+We prove the case where $f$ is analytic. We've seen in Exercise 2.60 that
+\begin{equation*}
+    \theta\Vec{n}\cdot\Vec{\sigma}=\theta\cdot\frac{I+\Vec{n}\cdot\Vec{\sigma}}{2}+(-\theta)\cdot\frac{I-\Vec{n}\cdot\Vec{\sigma}}{2}
+\end{equation*}
+
+So that $\frac{I\pm\Vec{n}\cdot\Vec{\sigma}}{2}$ are the Forbenius covariants of their correspondent eigenvalues.
+
+Then, by Sylvester's formula, we have
+\begin{align*}
+    f(\theta\Vec{n}\cdot\Vec{\sigma})
+    &= f(\theta)\cdot\frac{I+\Vec{n}\cdot\Vec{\sigma}}{2}+f(-\theta)\cdot\frac{I-\Vec{n}\cdot\Vec{\sigma}}{2} \\
+    &= \frac{f(\theta)+f(-\theta)}{2}I+\frac{f(\theta)-f(-\theta)}{2}\Vec{n}\cdot\Vec{\sigma}
+\end{align*}
+\end{proof}
+
+\begin{remark}
+If $f$ is not analytic, the equality may not be satisfied.
+\end{remark}
+
+\bigskip
+\begin{problem}[Properties of the Schmidt number]
+\end{problem}
+\begin{enumerate}
+    \item
+    \begin{proof}
+    We note the Schmidt decomposition of $\ket{\psi}$ as
+    \begin{equation*}
+        \ket{\psi}=\sum_i\lambda_i\ket{i_A}\ket{i_B}
+    \end{equation*}
+    
+    Then it is easy to see that
+    \begin{equation*}
+        \rho_A=\tr_B(\ket{\psi}\bra{\psi})=\sum_i\lambda_i^2\ket{i_A}\bra{i_A}
+    \end{equation*}
+    with the latter being a spectral decomposition.
+    
+    Thus, we have $\Sch(\psi)=\mathrm{card}((\lambda_i)_i)=\mathrm{card}((\lambda_i^2)_i)=\mathrm{rank}(\rho_A)$.
+    \end{proof}
+    
+    \item
+    \begin{proof}
+    Similarly, we have
+    \begin{equation*}
+        \rho_A=\sum_{i,j}\braket{\beta_j\lvert\beta_i}\ket{\alpha_i}\bra{\alpha_j}
+    \end{equation*}
+    Let $u$ be a matrix where $u_{i j}=\braket{\beta_j\lvert\beta_i}$ (and $\mathrm{rank}(u)=\mathrm{rank}(\rho_A)$). The number of terms in the decomposition is simply the number of non-zero elements in $u$, which is evidently greater than or equal to its rank, i.e. $\Sch(\psi)$.
+    \end{proof}
+    
+    \item
+    \begin{proof}
+    We only need to prove the original triangle inequality, i.e.
+    \begin{equation*}
+        \Sch(\psi)\leq\Sch(\varphi)+\Sch(\gamma)
+    \end{equation*}
+    
+    So that we can end the proof using the fact that
+    \begin{equation*}
+        \ket{\varphi}=\frac{1}{\alpha}\ket{\psi}+(-\frac{\beta}{\alpha})\ket{\gamma}
+    \end{equation*}
+    \begin{equation*}
+        \ket{\gamma}=\frac{1}{\beta}\ket{\psi}+(-\frac{\alpha}{\beta})\ket{\varphi}
+    \end{equation*}
+    
+    To prove the triangle inequality, it is sufficient to see that, if we express $\ket{\varphi}$ and $\ket{\gamma}$ as
+    \begin{equation*}
+        \ket{\varphi}=\sum_i \lambda_i\ket{\alpha_i}\ket{\beta_i}
+    \end{equation*}
+    \begin{equation*}
+        \ket{\gamma}=\sum_j \lambda^\prime_j\ket{\alpha^\prime_j}\ket{\beta^\prime_j}
+    \end{equation*}
+    
+    Then $\rho^A$ can be expressed as
+    \begin{equation*}
+        \rho^A=\sum_i \ket{\tau_i}\bra{\alpha_i}+\sum_j \ket{\tau^\prime_j}\bra{\alpha^\prime_j}
+    \end{equation*}
+    
+    Therefore,
+    \begin{equation*}
+        \Sch(\psi)=\mathrm{rank}(\rho^A)\leq\mathrm{card}\left(\left(\bra{\alpha_i}\right)_i\right)+\mathrm{card}\left(\left(\bra{\alpha^\prime_j}\right)_j\right)=\Sch(\varphi)+\Sch(\gamma)
+    \end{equation*}
+    \end{proof}
+\end{enumerate}
+
+\bigskip
+\begin{problem}
+\end{problem}
+\begin{enumerate}
+    \item
+    \begin{proof}
+    We see that
+    \begin{align*}
+        &\ (Q\otimes S+R\otimes S+R\otimes T-Q\otimes T)^2 \\
+        &= ((Q+R)\otimes S+(R-Q)\otimes T)^2 \\ 
+        &= (Q+R)^2\otimes S^2+(R-Q)^2\otimes T^2 + (Q+R)(R-Q)\otimes ST + (R-Q)(Q+R)\otimes TS \\
+        &= (2I+\{Q,R\})\otimes I+(2I-\{Q,R\})\otimes I+[Q,R]\otimes ST+[R,Q]\otimes TS \\
+        &= 4I + [Q,R]\otimes [S,T]
+    \end{align*}
+    \end{proof}
+    
+    \item
+    \begin{proof}
+    We have
+    \begin{align*}
+        &\ \braket{Q\times S}+\braket{R\times S}+\braket{R\times T}-\braket{Q\times T} \\
+        &= \braket{Q\otimes S+R\otimes S+R\otimes T-Q\otimes T} \\
+        &\leq \sqrt{\braket{Q\otimes S+R\otimes S+R\otimes T-Q\otimes T}^2} \\
+        &= \sqrt{\braket{4I + [Q,R]\otimes [S,T]}} \\
+        &= \sqrt{4 + \braket{[Q,R]}\braket{[S,T]}} \\
+        &\leq \sqrt{4 + 2\times 2} = 2\sqrt{2}
+    \end{align*}
+    
+    where we applied
+    \begin{align*}
+        \left\lvert\braket{[Q,R]}\right\rvert
+        &= \lvert\braket{Q R} - \braket{R Q}\rvert \\
+        &\leq \lvert\braket{Q R}\rvert + \lvert\braket{R Q}\rvert \\
+        &\leq 2\sqrt{\braket{Q^2}\braket{R^2}} = 2\lvert\braket{I}\rvert = 2
+    \end{align*}
+    \end{proof}
+\end{enumerate}
+\end{document}

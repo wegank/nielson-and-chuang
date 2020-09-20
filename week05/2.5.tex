@@ -1,0 +1,161 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\setcounter{chapter}{2}
+\setcounter{section}{4}
+\setcounter{exercise}{75}
+\section{The Schmidt decomposition and purifications}
+
+\begin{exercise}
+\end{exercise}
+The previous proof simply works, since the singular value decomposition is also applicable to the rectangular matrix $a$, so that $a=u d v$, where $d$ is a rectangular diagonal matrix. 
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+    Let $ABC$ be a three-qubit system. By definition, for all $\ket{\psi}$, $\lambda$ is a 2x2x2 tensor with at most two non-zero elements on its space diagonal. This is not the case if only the first two qubits of $\ket{\psi}$ are entangled, where there must be two elements on a same face. 
+\end{proof}
+\begin{remark}
+    In the unofficial solution manual, the last two qubits of the state $\ket{\psi}$ are entangled.
+\end{remark}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{enumerate}
+    \item 
+    \begin{proof}
+        It is easy to see that
+        \begin{itemize}
+            \item If $\ket{\psi}$ is a product state, $\ket{\psi}=\ket{\psi_A}\ket{\psi_B}=\sum_i \delta_{i\psi}\ket{i_A}\ket{i_B}$ with $(\ket{i_A})_i$, $(\ket{i_B})_i$ orthonormal bases of $A$, $B$, respectively. The Schmidt number is simply 1.
+            \item If the Schmidt number is 1, then $\ket{\psi}=\sum_i \lambda_i\ket{i_A}\ket{i_B}=\ket{\psi_A}\ket{\psi_B}$, where $\lambda_\psi=1$. $\ket{\psi}$ is indeed a product state.
+        \end{itemize}
+    \end{proof}
+    \item
+    \begin{proof}
+        We see that
+        \begin{itemize}
+            \item If $\ket{\psi}$ is a product state, then $\rho^A$ is a pure state, according to Exercise 2.74. Similarly, $\rho^B$ is also a pure state.
+            \item If $\rho^A$ and $\rho^B$ are pure states, then the joint state $\rho^{AB}$ is a pure state, and can therefore be written as $\rho^{AB}=\ket{\psi}\bra{\psi}$, with $\ket{\psi}=\sum_i \lambda_i\ket{i_A}\ket{i_B}$, and $\rho^A=\sum_i\lambda_i^2\ket{i_A}\bra{i_A}$. According to Exercise 2.71, let $\lambda_k=1$ the only non-zero element in $(\lambda_i)_i$, we have $\ket{\psi}=\ket{k_A}\ket{k_B}$, i.e. $\ket{\psi}$ is a product state.
+        \end{itemize}
+    \end{proof}
+\end{enumerate}
+
+\begin{exercise}
+\end{exercise}
+\begin{enumerate}
+    \item We simply have
+    \begin{equation*}
+        \frac{\ket{00}+\ket{11}}{\sqrt{2}}=\sqrt{\frac{1}{2}}\ket{0}\ket{0}+\sqrt{\frac{1}{2}}\ket{1}\ket{1}
+    \end{equation*}
+    
+    \item Let $\ket{\psi}=\frac{\ket{0}+\ket{1}}{\sqrt{2}}$, we have
+    \begin{equation*}
+        \frac{\ket{00}+\ket{01}+\ket{10}+\ket{11}}{2}=\ket{\psi}\ket{\psi}
+    \end{equation*}
+    
+    \item Let
+    \begin{equation*}
+        \ket{0_A}=\ket{1_B}=\sqrt{\frac{5+\sqrt{5}}{10}}\ket{0}+\sqrt{\frac{5-\sqrt{5}}{10}}\ket{1}
+    \end{equation*}
+    \begin{equation*}
+        \ket{1_A}=\ket{0_B}=\sqrt{\frac{5+\sqrt{5}}{10}}\ket{0}-\sqrt{\frac{5-\sqrt{5}}{10}}\ket{1}
+    \end{equation*}
+    
+    We have
+    \begin{equation*}
+        \frac{\ket{00}+\ket{01}+\ket{10}}{\sqrt{3}}=\sqrt{\frac{3+\sqrt{5}}{6}}\ket{0_A}\ket{0_B}+\sqrt{\frac{3-\sqrt{5}}{6}}\ket{1_A}\ket{1_B}
+    \end{equation*}
+\end{enumerate}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+    We note $\ket{\psi}=\sum_i \lambda_i\ket{i_A}\ket{i_B}$ and $\ket{\varphi}=\sum_i \lambda_i\ket{i^\prime_A}\ket{i^\prime_B}$. As
+    \begin{equation*}
+        (U\otimes V)\ket{\varphi}=\sum_i \lambda_i\ U\ket{i^\prime_A} V\ket{i^\prime_B}
+    \end{equation*}
+    
+    We can simply let $U=\sum_i \ket{i_A}\bra{i^\prime_A}$ and $V=\sum_i \ket{i_B}\bra{i^\prime_B}$, which are unitary.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+    We note $\rho^A=\sum_i p_i\ket{i_A}\bra{i_A}$ a spectral decomposition and $\ket{AR_1}=\sum_i\lambda^\prime_i \ket{i^\prime_A}\ket{i_{R_1}}$ its Schmidt decomposition. Since
+    \begin{equation*}
+        \rho^A=\tr_R(\ket{AR_1}\bra{AR_1})=\sum_i{\lambda_i^\prime}^2\ket{i^\prime_A}\bra{i^\prime_A}
+    \end{equation*}
+    
+    The latter being another spectral decomposition, we can safely assume $p_i={\lambda^\prime_i}^2$ and $\ket{i_A}=\ket{i^\prime_A}$ without loss of generality. Applying the same argument on $\ket{AR_2}$ gives
+    \begin{equation*}
+        \ket{AR_1}=\sum_i\sqrt{p_i}\ket{i_A}\ket{i_{R_1}}
+    \end{equation*}
+    \begin{equation*}
+        \ket{AR_2}=\sum_i\sqrt{p_i}\ket{i_A}\ket{i_{R_2}}
+    \end{equation*}
+    
+    Where follows the proof of Exercise 2.80, with $U=\sum_i \ket{i_A}\bra{i_A}=I$.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{enumerate}
+    \item
+    \begin{proof}
+        We have
+        \begin{align*}
+            \tr_R\left(\sum_{i,j}\sqrt{p_i p_j}\ket{\psi_i}\ket{i}\bra{j}\bra{\psi_j}\right) 
+            &= \sum_{i,j}\sqrt{p_i p_j}\ket{\psi_i}\bra{\psi_j}\braket{i\vert j} \\
+            &= \sum_i p_i\ket{\psi_i}\bra{\psi_i} = \rho
+        \end{align*}
+    \end{proof}
+    
+    \item
+    We have $P=I\otimes \ket{i}\bra{i}$ and
+    \begin{align*}
+        \braket{\psi\vert P\vert\psi}
+        &= \sum_k \sqrt{p_k}\bra{k}\bra{\psi_k} \sum_l \sqrt{p_l}\ I \ket{\psi_l} \ket{i}\braket{i\vert l} \\
+        &= \sum_k \sqrt{p_k}\bra{k}\bra{\psi_k} \sqrt{p_i}\ket{\psi_i}\ket{i} \\
+        &= p_i \braket{\psi_i \vert \psi_i} = p_i
+    \end{align*}
+    
+    With the corresponding state of system $AR$
+    \begin{equation*}
+        \frac{P\ket{\psi}}{\sqrt{p_i}} = \frac{\sqrt{p_i}\ket{\psi_i}\ket{i}}{\sqrt{p_i}} = \ket{\psi_i}\ket{i}
+    \end{equation*}
+    
+    And simply $\ket{\psi_i}$ for system $A$.
+    
+    \item
+    \begin{proof}
+        Let $\ket{AR}=\sum_i \lambda_i\ket{i_A}\ket{i_R}$ be a Schmidt decomposition. We have
+        \begin{align*}
+            \rho = \tr_R(\ket{AR}\bra{AR})
+            &= \sum_{i, j} \lambda_i \lambda_j \ket{i_A}\bra{j_A}\braket{i_R\vert j_R} \\
+            &= \sum_i \lambda_i^2 \ket{i_A}\bra{i_A} 
+            = \sum_i \ket{\tilde{i}_A} \bra{\tilde{i}_A}
+        \end{align*}
+        
+        Therefore, there exists a unitary matrix $u$ such that
+        \begin{equation*}
+            \ket{\tilde{i}_A} = \sum_j u_{i j} \ket{\tilde{\psi}_j}
+            \iff \ket{i_A} = \frac{1}{\lambda_i}\sum_j u_{i j}\sqrt{p_j}\ket{\psi_j}
+        \end{equation*}
+        
+        And
+        \begin{equation*}
+            \ket{AR} = \sum_{i,j}u_{i,j}\sqrt{p_j}\ket{\psi_j}\ket{i_R}
+            = \sum_{j} \sqrt{p_j}\ket{\psi_j}(\sum_i u_{i j}\ket{i_R})
+        \end{equation*}
+        
+        Let $\ket{j}=\sum_i u_{i j}\ket{i_R}$, we see that $(\ket{i})_i$ forms the orthonormal basis we want.
+    \end{proof}
+    
+\end{enumerate}
+
+\end{document}

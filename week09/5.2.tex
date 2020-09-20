@@ -1,0 +1,51 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\setcounter{chapter}{5}
+\setcounter{section}{1}
+\setcounter{exercise}{6}
+\section{Phase estimation}
+
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+It is easy to see that
+\[
+    \ket{j}\ket{u}\mapsto\ket{j}\prod_{i=1}^t U^{2^{t-i} j_i}\ket{u}=\ket{j} U^{\sum_{i=1}^t 2^{t-i}j_i}\ket{u}=\ket{j}U^j\ket{u}
+\]
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+We see that
+\begin{itemize}
+    \item The output $\sum_u c_u\ket{\widetilde{\varphi_u}}\ket{u}$ being in $\ket{\widetilde{\varphi_u}}\ket{u}$ is of probability $\lvert c_u\rvert^2$.
+    \item Getting $\varphi_u$ accurate to $n$ bits in the first condition is of probability at least $1-\epsilon$.
+\end{itemize}
+
+So the probability for measuring $\varphi_u$ accurate to $n$ bits is at least $\lvert c_u\rvert^2(1-\epsilon)$.
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+We have $\varphi=0=0.0$ or $\varphi=\frac{1}{2}=0.1$, so a $1$-bit approximation suffices.
+
+From Figure 5.1 we have
+\[
+    FT^\dagger=H^\dagger=H
+\]
+
+According to Figure 5.3, the transformation is given by
+\[
+    \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+    \lstick{\ket{0}} & \gate{H} & \ctrl{1} & \gate{H} & \meter \\
+    \lstick{\ket{u}} & \qw & \gate{U} & \qw & \rstick{\ket{u^\prime}} \qw
+    }\end{array}
+\]
+which is exactly the same as in Exercise 4.34.
+
+If the measurement gives $0$ (resp. $1$), $\ket{u^\prime}$ is in the eigenspace associated with $1$ (resp. $-1$).
+
+
+\end{document}

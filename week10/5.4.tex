@@ -1,0 +1,184 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\setcounter{chapter}{5}
+\setcounter{section}{3}
+\setcounter{exercise}{19}
+\section{General applications of the quantum Fourier transform}
+\subsection{Period-finding}
+
+\begin{exercise}
+\end{exercise}
+Let $n=\frac{N}{r}$, we have
+\begin{align*}
+    \hat{f}(l)
+    &= \frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}e^{-2\pi i l x/N}f(x) \\
+    &= \frac{1}{\sqrt{N}}\sum_{k=0}^{n-1}\sum_{x=0}^{r-1}e^{-2\pi i l (k r+x)/N}f(k r + x) \\
+    &= \frac{1}{\sqrt{N}}\sum_{x=0}^{r-1}\left[e^{-2\pi i l x/N}f(x)\sum_{k=0}^{n-1}e^{-2\pi i l k/n}\right]
+\end{align*}
+
+If $m=\frac{l}{n}$ is an integer, we have
+\[
+    \hat{f}(l)
+    = \frac{1}{\sqrt{N}}\sum_{x=0}^{r-1}\left[e^{-2\pi i l x/N}f(x) \cdot n\right]
+    = \frac{\sqrt{N}}{r}\sum_{x=0}^{r-1}e^{-2\pi i m x/r}f(x)
+\]
+
+Otherwise, we have 
+\[
+    \hat{f}(l) = 0
+\]
+\begin{remark}
+The square root should be removed from $\sqrt{\frac{N}{r}}$.
+\end{remark}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{enumerate}
+    \item \begin{proof}
+    We have
+    \begin{align*}
+        U_y\ket{\hat{f}(l)} 
+        &= U_y\left[\frac{1}{r}\sum_{x=0}^{r-1}e^{-2\pi i l x/r}\ket{f(x)}\right]\\
+        &= \frac{1}{r}\sum_{x=0}^{r-1}e^{-2\pi i l x/r}f(x+y)=e^{2\pi i l y/r}\ket{\hat{f}(l)}
+    \end{align*}
+    
+    So the corresponding eigenvalues are $e^{2\pi i l y/r}$.
+    \end{proof}
+    
+    \item \begin{proof}
+    Since we have
+    \[ 
+        \ket{f(x_0)}=\frac{1}{\sqrt{r}}\sum_{l=0}^{r-1}e^{2\pi i l x_0/r}\ket{\hat{f}(l)}
+    \]
+    
+    According to Exercise 5.8, we have
+    \begin{mdframed}
+    \begin{enumerate}[label=(\arabic*)]
+        \item \quad $\ket{0}\ket{f(x_0)}$ \tabto{4cm} initial state
+        \item \quad $\to$ $\widehat{l x_0/r}$ \tabto{4cm} apply quantum phase estimation (with $p\geq\frac{1-\varepsilon}{r}$)
+        \item \quad $\to$ $r$ \tabto{4cm} apply continued fractions algorithm
+    \end{enumerate}
+    \end{mdframed}
+    
+    So we can also solve the period-finding problem using $U_y$.
+    \end{proof}
+\end{enumerate}
+
+\subsection{Discrete logarithms}
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We have
+\begin{align*}
+    \ket{\hat{f}(l_1,l_2)}
+    &= \frac{1}{r\sqrt{r}} \sum_{x_1=0}^{r-1}\sum_{x_2=0}^{r-1}e^{-2\pi i(l_1x_1+l_2x_2)/r}\ket{f(x_1,x_2)} \\
+    &= \frac{1}{r\sqrt{r}} \sum_{x_1=0}^{r-1}\sum_{x_2=0}^{r-1}e^{-2\pi i(l_1x_1+l_2x_2)/r}\ket{f(0,s x_1+x_2)} \\
+    &= \frac{1}{r\sqrt{r}} \sum_{x_1=0}^{r-1}\sum_{j=s x_1}^{s x_1+r-1}e^{-2\pi i(l_1x_1+l_2(j-s x_1))/r}\ket{f(0,j)} \\
+    &= \frac{1}{r\sqrt{r}} \sum_{x_1=0}^{r-1}\left[e^{-2\pi i(l_1-l_2 s)x_1/r}\sum_{j=s x_1}^{s x_1+r-1}e^{-2\pi i l_2 j/r}\ket{f(0,j)}\right] \\
+    &= \frac{1}{r\sqrt{r}} \left[\sum_{x_1=0}^{r-1}e^{-2\pi i(l_1-l_2 s)x_1/r}\right]\left[\sum_{j=0}^{r-1}e^{-2\pi i l_2 j/r}\ket{f(0,j)}\right]
+\end{align*}
+
+If $(l_1-l_2 s)$ is an integer multiple of $r$, we have
+\[
+    \ket{\hat{f}(l_1,l_2)}=\frac{1}{\sqrt{r}}\sum_{j=0}^{r-1}e^{-2\pi i l_2 j/r}\ket{f(0,j)}
+\]
+
+Otherwise, we have
+\[
+    \ket{\hat{f}(l_1,l_2)}=0
+\]
+\end{proof}
+\begin{remark}
+We have slightly modified (5.70) and (5.72).
+\end{remark}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We have
+\begin{align*}
+    &\quad\frac{1}{\sqrt{r}}\sum_{l_1=0}^{r-1}\sum_{l_2=0}^{r-1}e^{2\pi i(l_1x_1+l_2x_2)/r}\ket{\hat{f}(l_1,l_2)} \\
+    &= \frac{1}{\sqrt{r}}\sum_{l_1=0}^{r-1}\sum_{l_2=0}^{r-1}e^{2\pi i(l_1x_1+l_2x_2)/r}\frac{1}{\sqrt{r}}\sum_{j=0}^{r-1}e^{-2\pi i l_2 j/r}\mathds{1}_{r\mathbb{Z}}(l_1-l_2s)\ket{f(0,j)} \\
+    &= \frac{1}{r}\sum_{l_1=0}^{r-1}\sum_{l_2=0}^{r-1}\sum_{j=0}^{r-1}e^{2\pi i(l_1x_1+l_2(x_2-j))/r}\mathds{1}_{r\mathbb{Z}}(l_1-l_2s)\ket{f(0,j)} \\
+    &= \frac{1}{r}\sum_{l_2=0}^{r-1}\sum_{j=0}^{r-1}e^{2\pi i(l_2(s x_1+x_2-j))/r}\ket{f(0,j)} \\
+    &= \frac{1}{r}\sum_{j=0}^{r-1}r\mathds{1}_{r\mathbb{Z}}(s x_1+x_2-j)\ket{f(0,j)} = \ket{f(0,s x_1+x_2)} = \ket{f(x_1,x_2)}
+\end{align*}
+\end{proof}
+\begin{remark}
+We have slightly modified (5.73).
+\end{remark}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+Let the continued fraction of $\widehat{s}=\frac{\widehat{s l_2/r}}{\widehat{l_2/r}}$ be $[s_0,s_1,\cdots,s_m]$. We have
+\begin{itemize}
+    \item If $s_1$ doesn't exist, i.e. $\hat{s}=[s_0]$, we have $s=s_0$.
+    \item If $s_1=1$, we have $\hat{s}<s$, so $s=s_0+1$.
+    \item Otherwise, we have $\hat{s}>s$, so $s=s_0$.
+\end{itemize}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+We have
+\begin{itemize}
+    \item $b^{x_1}a^{x_2}$ is in $O(M(t)t)$, according to Box 5.2.
+    \item $\ket{y}\ket{b^{x_1}a^{x_2}}\mapsto\ket{y}\ket{y\oplus b^{x_1}a^{x_2}}$ is nothing more than $t$ $\CNOT$s.
+\end{itemize}
+
+So we need $O(M(t)t)\subset O(t^{2+\varepsilon})$ gates.
+
+\subsection{The hidden subgroup problem}
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We re-express (5.77) as
+\[
+    \sum_{h\in K}\prod_{i=1}^M e^{-2\pi i l h_i/\lvert G\rvert}=\lvert K\rvert
+\]
+
+where $h_i\in K_{p_i}\leq\mathbb{Z}_{p_i}$.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+Let $(a_1,\cdots,a_k)$ be a generating set of $G$. Let
+\[
+    f:\begin{cases}\mathbb{Z}_q^k\to G\\(x_1\cdots x_k)\mapsto\prod_{i=1}^k a_k x^k\end{cases}
+\]
+
+Since $K=\ker f$, we have $\mathbb{Z}_q^k/K\cong G$. The generator of $K$ is given by HSP.
+
+The final step is to calculate a set of generators for $\mathbb{Z}_q^k$, and apply $f$ on it to obtain a set of generators for $G$, which decomposes $G$. \cite{DBLP:journals/corr/cs-DS-0101004}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+We can apply, as in (5.4.2):
+
+\begin{mdframed}
+Runtime: One use of $U$, and $O(L^2)$ operations. Succeeds with probability $O(1)$.
+\begin{enumerate}[label=(\arabic*)]
+    \item \quad $\ket{0}\ket{0}$ \tabto{6cm} initial state
+    \item \quad $\begin{aligned}\to&\frac{1}{\sqrt{\lvert G\rvert}}\sum_{g\in G}\ket{g}\ket{f(g)}\\&=\frac{1}{\lvert G\rvert}\sum_{l=0}^{\lvert G\rvert-1}\sum_{g\in G}e^{2\pi i l g/\lvert G\rvert}\ket{g}\ket{\hat{f}(l)}\end{aligned}$ \tabto{7cm} create superposition and apply $U$
+    \item \quad $\to$ $\displaystyle\frac{1}{\sqrt{\lvert G\rvert}}\sum_{l=0}^{\lvert G\rvert-1}\ket{\widehat{l/\lvert G\rvert}}\ket{\hat{f}(l)}$ \tabto{6cm} apply inverse Fourier transform to first register
+    \item \quad $\to$ $\widehat{l/\lvert G\rvert}$ \tabto{6cm} measure first register
+    \item \quad $\to$ $l$ \tabto{6cm} apply continued fractions algorithm
+\end{enumerate}
+\end{mdframed}
+
+To determine $l$, then determine elements of $K$ and its generating set classically.
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+Trivial.
+
+\subsection{Other quantum algorithms?}
+
+\end{document}

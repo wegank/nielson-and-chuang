@@ -1,0 +1,262 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\setcounter{chapter}{4}
+\setcounter{section}{1}
+\section{Single qubit operations}
+
+\begin{exercise}
+\end{exercise}
+It is easy to see that
+\begin{itemize}
+    \item The eigenvectors of $X$ are $\frac{\ket{0}\pm\ket{1}}{\sqrt{2}}=\cos\frac{\pi}{4}\ket{0}\pm\sin\frac{\pi}{4}\ket{1}$, corresponding to $(\pm1,0,0)$.
+    \item The eigenvectors of $Y$ are $\frac{\ket{0}\mp i\ket{1}}{\sqrt{2}}=\cos\frac{\pi}{4}\ket{0}\pm e^{i\frac{\pi}{2}}\sin\frac{\pi}{4}\ket{1}$, corresponding to $(0,\pm1,0)$.
+    \item The eigenvectors of $Z$ are $\ket{0}$ and $\ket{1}$, corresponding to $(0,0,\pm1)$.
+\end{itemize}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We simply have
+\begin{align*}
+    \exp{i A x} &= \sum_{n=0}^{+\infty}\frac{(i A x)^n}{n!} \\
+    &=\sum_{n=0}^{+\infty}\frac{(-1)^n}{(2n)!}x^{2n}I+i\sum_{n=0}^{+\infty}\frac{(-1)^n}{(2n+1)!}x^{2n+1}A \\
+    &= \cos{x} I + i\sin{x} A
+\end{align*}
+
+And then we use the fact that $(-X)^2=(-Y)^2=(-Z)^2=I$ to finalize the proof.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+Since
+\begin{equation*}
+    T=\exp(i\frac{\pi}{8})\begin{pmatrix}\exp(i\frac{\pi}{8})&0\\0&\exp(i\frac{\pi}{8})\end{pmatrix}=\exp(i\frac{\pi}{8})R_z(\frac{\pi}{4})
+\end{equation*}
+
+We have $T=R_z(\frac{\pi}{4})$ up to a global phase.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+We already have $H=R_x(\pi)R_y(\frac{\pi}{2})$ up to a global phase; it is easy to verify that
+\begin{equation*}
+    H=\exp(i\frac{3\pi}{2})R_x(\pi)R_y(\frac{\pi}{2})
+\end{equation*}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+According to Exercise 2.60, we have
+\begin{align*}
+    (\hat{n}\cdot\Vec{\sigma})^2=(P_+-P_-)^2=P_+^2+P_-^2=P_++P_-=I
+\end{align*}
+\end{proof}
+\begin{remark}
+Alternatively, we can deduce from Exercise 2.72 that $(\hat{n}\cdot\Vec{\sigma})^2=\lvert\hat{n}\rvert^2 I=I$.
+\end{remark}
+
+\bigskip
+\begin{exercise}[Bloch sphere interpretation of rotations]
+\end{exercise}
+\begin{proof}
+Let $\ket{\varphi}=\cos{\frac{\theta}{2}}\ket{0}+e^{i\varphi}\sin{\frac{\theta}{2}}\ket{1}$ satisfying $\ket{\varphi}\bra{\varphi}=\frac{I+\Vec{\lambda}\cdot\Vec{\sigma}}{2}$, we have
+\begin{equation*}
+    \Vec{\lambda}=(\cos\varphi\sin\theta, \sin\varphi\sin\theta, \cos\theta)
+\end{equation*}
+
+Geometrically, we decompose $R_{\hat{n}}$ as :
+\begin{align*}
+    R_{\hat{n}}(\alpha)
+    &= R_z(\varphi)R_y(\theta)R_z(\alpha)R_y(-\theta)R_z(-\varphi) \\
+    &= R_z(\varphi)R_y(\theta)\left(\cos\frac{\alpha}{2}I-i\sin{\frac{\alpha}{2}}Z\right)R_y(-\theta)R_z(-\varphi) \\
+    &= R_z(\varphi)\left(\cos\frac{\alpha}{2}I-i\sin{\frac{\alpha}{2}}(\sin\theta X+\cos\theta Z)\right)R_z(-\varphi) \\
+    &= \cos\frac{\alpha}{2}I-i\sin\frac{\alpha}{2}(\cos\varphi\sin\theta X+\sin\varphi\sin\theta Y+\cos\theta Z) \\
+    &= \cos\frac{\alpha}{2}I-i\sin\frac{\alpha}{2}\Vec{\lambda}\cdot\Vec{\sigma}
+\end{align*}
+
+which is exactly the expected form.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+The proof of $X Y X=-Y$ is trivial. Regarding the other equality, we have
+\begin{equation*}
+    X R_y(\theta) X = X (\cos\frac{\theta}{2}I - i\sin{\frac{\theta}{2}}Y) X = \cos\frac{\theta}{2}I + i\sin{\frac{\theta}{2}}Y = R_y(-\theta)
+\end{equation*}
+
+which is also trivial.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{enumerate}
+    \item 
+    \begin{proof}
+    Let $U$ be an arbitrary single qubit unitary operator. Since we have
+    \begin{equation*}
+        \lvert\det(U)\rvert=1
+    \end{equation*}
+    Let $\alpha=\frac{1}{2}\arg\det U$ and $U^\prime=e^{-i\alpha}U$, we have
+    \begin{equation*}
+        U=e^{i\alpha}U^\prime
+    \end{equation*}
+    
+    where $U^\prime$ is a unitary matrix with $\det(U^\prime)=1$, i.e. $\lambda_1\lambda_2=1$ and $\lvert\lambda_1\rvert=\lvert\lambda_2\rvert=1$. 
+    
+    Let $\theta=2\arg\lambda_1$, we have $\lambda_1=e^{i\frac{\theta}{2}}$ and $\lambda_2=e^{-i\frac{\theta}{2}}$, so that $\tr(U^\prime)=\cos\frac{\theta}{2}$.
+    
+    Hence, we can decompose $U^\prime$ as
+    \begin{equation*}
+        U^\prime=\cos\frac{\theta}{2}I+\vec{r}\cdot\vec{\sigma}=\cos\frac{\theta}{2}I+(\Vec{u}+i\Vec{v})\cdot\vec{\sigma}
+    \end{equation*}
+    
+    where $\vec{u}$, $\vec{v}$ are real-valued vectors. A brutal expansion of ${U^\prime}^\dagger U^\prime=I$ gives 
+    \begin{equation*}
+        \lvert\vec{r}\rvert^2=\sin^2\frac{\theta}{2}
+    \end{equation*}
+    and 
+    \begin{equation*}
+        \forall i\in\{1,2,3\}:2u_i\cos\frac{\theta}{2}=0
+    \end{equation*}
+    \begin{equation*}
+        \forall i,j\in\{1,2,3\}^2:u_i u_j = v_i v_j
+    \end{equation*}
+    
+    We see that
+    \begin{itemize}
+        \item If $\vec{u}=0$, let $\hat{n}=\frac{1}{\sin\frac{\theta}{2}}\vec{v}$, we have
+        \begin{equation*}
+            U^\prime=\cos\frac{\theta}{2}I+i\sin\frac{\theta}{2}\hat{n}\cdot\vec{\sigma}=R_{\hat{n}}(\theta)
+        \end{equation*}
+        So that
+        \begin{equation*}
+            U=e^{i\alpha}R_{\hat{n}}(\theta)
+        \end{equation*}
+        \item If $\vec{u}\neq0$, we have $\cos{\frac{\theta}{2}}=0$ and $\vec{u}=\pm\vec{v}$. In both cases, we will have
+        \begin{equation*}
+            \vec{r}=\vec{u}\pm\vec{v}=e^{\pm i\frac{\pi}{4}}\hat{n}
+        \end{equation*}
+        where $\hat{n}$ is real-valued. Finally, we have
+        \begin{equation*}
+            U=e^{i\alpha} U^\prime=e^{i(\alpha\pm\frac{\pi}{4})}R_{\hat{n}}(\theta)
+        \end{equation*}
+    \end{itemize}
+    \end{proof}
+    
+    \item
+    Simply let $\alpha=\frac{\pi}{2}$, $\theta=\pi$ and $\hat{n}=(\frac{1}{\sqrt{2}},0,\frac{1}{\sqrt{2}})$, as $\vec{u}=0$.
+    
+    \item
+    Simply let $\alpha=\frac{\pi}{4}$, $\theta=\frac{\pi}{2}$ and $\hat{n}=(0,0,1)$, as $\vec{u}=0$.
+\end{enumerate}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We already have, in Exercise 4.8, that
+\begin{equation*}
+    U=e^{i\alpha}U^\prime
+\end{equation*}
+
+where $U^\prime$ is a unitary matrix with $\det(U^\prime)=1$, with the general expression
+\begin{equation*}
+    U^\prime = \begin{pmatrix}e^{i\varphi_1}\cos\theta & -e^{i\varphi_2}\sin\theta \\
+    e^{-i\varphi_2}\sin\theta & e^{-i\varphi_1}\cos\theta\end{pmatrix}
+\end{equation*}
+
+where $\varphi_1, \varphi_2, \theta$ are real numbers.
+
+We finalize the proof by attributing $\varphi_1=\frac{-\beta-\delta}{2}$, $\varphi_2=\frac{-\beta+\delta}{2}$ and $\theta=\frac{\gamma}{2}$.
+\end{proof}
+
+\bigskip
+\begin{exercise}[$X$-$Y$ decomposition of rotations]
+\end{exercise}
+There exist real numbers $\alpha$, $\beta$, $\gamma$ and $\delta$ such that
+\begin{equation*}
+    U=e^{i\alpha}R_x(\beta)R_y(\gamma)R_x(\delta)
+\end{equation*}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+I think it is wrong. It seems to me that, if we let $\hat{m}$ be on the $z$ axis and the angle between $\hat{m}$ and $\hat{n}$ be $\frac{\pi}{64}$, then the maximum rotation angle of the composed rotation operator is $\frac{\pi}{8}$, which is not sufficient to cover the case $X$ performs a rotation of angle $\pi$ from $\ket{0}$ to $\ket{1}$.
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+We have $\alpha=\frac{\pi}{2}$, $\beta=0$, $\gamma=\frac{\pi}{2}$ and $\delta=\pi$, so that
+\begin{equation*}
+    A=
+\begin{pmatrix}
+ \cos\frac{\pi}{8} & -\sin\frac{\pi}{8} \\
+ \sin\frac{\pi}{8} & \cos\frac{\pi}{8} \\
+\end{pmatrix},\ 
+    B=
+\begin{pmatrix}
+ e^{\frac{i \pi }{4}} \cos\frac{\pi}{8} & e^{-\frac{1}{4} (i \pi )} \sin\frac{\pi}{8} \\
+ -e^{\frac{i \pi }{4}} \sin\frac{\pi}{8} & e^{-\frac{1}{4} (i \pi )} \cos\frac{\pi}{8} \\
+\end{pmatrix},\ 
+    C=
+\begin{pmatrix}
+ e^{-\frac{i \pi }{4}} & 0 \\
+ 0 & e^{\frac{i \pi }{4}} \\
+\end{pmatrix}
+\end{equation*}
+
+\bigskip
+\begin{exercise}[Circuit identities]
+\end{exercise}
+\begin{proof}
+Trivial.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We have
+\begin{equation*}
+    H T H=H(\frac{1+e^{\frac{i\pi}{4}}}{2}I+\frac{1-e^{\frac{i\pi}{4}}}{2}Z)H=\frac{1+e^{\frac{i\pi}{4}}}{2}I+\frac{1-e^{\frac{i\pi}{4}}}{2}X=e^{\frac{i\pi}{8}}R_x(\frac{\pi}{4})
+\end{equation*}
+
+Hence, $H T H=R_x(\frac{\pi}{4})$ up to a global state.
+\end{proof}
+
+\bigskip
+\begin{exercise}[Composition of single qubit operations]
+\end{exercise}
+\begin{enumerate}
+    \item 
+    \begin{proof}
+    We see that
+    \begin{align*}
+        &\ R_{\hat{n}_2}(\beta_2)R_{\hat{n}_1}(\beta_1) \\
+        &= (c_2 I-i s_2\hat{n}_2\cdot\vec{\sigma})(c_1 I-i s_1\hat{n}_1\cdot\vec{\sigma}) \\
+        &= (c_1c_2-s_1s_2\hat{n}_1\cdot\hat{n}_2)I-i(s_1c_2\hat{n}_1+c_1s_2\hat{n}_2-s_1s_2\hat{n}_2\times\hat{n}_1)\cdot\vec{\sigma} \\
+        &= c_{12}I-is_{12}\hat{n}_{12}\vec{\sigma} = R_{\hat{n}_{12}}(\beta_{12})
+    \end{align*}
+    \end{proof}
+    
+    \item
+    \begin{proof}
+    Since $c=c_1=c_2$ and $s=s_1=s_2$, we have
+    \begin{equation*}
+        c_{12}=c^2-s^2\ \hat{z}\cdot\hat{n}_2
+    \end{equation*}
+    \begin{equation*}
+        s_{12}\hat{n}_{12}=s c(\hat{z}+\hat{n}_2)-s^2\hat{n}_2\times\hat{n}_1
+    \end{equation*}
+    \end{proof}
+\end{enumerate}
+\end{document}

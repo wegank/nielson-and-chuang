@@ -1,0 +1,121 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\setcounter{chapter}{2}
+\setcounter{section}{3}
+\setcounter{exercise}{70}
+\section{The density operator}
+
+\setcounter{subsection}{1}
+\subsection{General properties of the density operator}
+
+\begin{exercise}[Criterion to decide if a state is mixed or pure]
+\end{exercise}
+
+\begin{proof}
+    We have
+    \begin{align*}
+        \tr\left(\rho^2\right)
+        &= \tr\left(\sum_i p_i\ket{\psi_i}\bra{\psi_i}\right)^2 \\
+        &= \tr\left(\sum_{i,j}p_i p_j \braket{\psi_i\vert\psi_j} \ket{\psi_i}\bra{\psi_j}\right) \\
+        &= \sum_{i,j} p_i p_j \braket{\psi_i\vert\psi_j} \tr\left(\ket{\psi_i}\bra{\psi_j}\right) \\
+        &= \sum_{i,j} p_i p_j \braket{\psi_i\vert\psi_j}^2 \\
+        &\leq \sum_{i,j} p_i p_j \braket{\psi_i\vert\psi_i} \braket{\psi_j\vert\psi_j} = \sum_{i,j} p_i p_j = 1
+    \end{align*}
+    
+    Additionally, for all $i\neq j$, we have $\braket{\phi_i\vert\phi_j}^2<\braket{\psi_i\vert\psi_i} \braket{\psi_j\vert\psi_j}$.
+    
+    Thus, the equality holds iff only one $\ket{\psi_i}$ has a non-zero probability, i.e. $\rho$ is a pure state.
+\end{proof}
+
+\begin{remark}
+    In the unofficial solution manual, the author constructs another ensemble of pure states using the spectral decomposition, so that $\braket{\psi_i\vert\psi_j}=\delta_{i j}$.
+\end{remark}
+
+\bigskip
+\begin{exercise}[Bloch sphere for mixed states]
+\end{exercise}
+\begin{enumerate}
+    \item
+    \begin{proof}
+        Using the fact that $\{I,\sigma_1,\sigma_2,\sigma_3\}$ forms a basis of $\mathrm{M}_{2,2}(\mathbb{C})$, one can write
+        \begin{equation*}
+            \rho = \frac{c I + r_1 \sigma_1 + r_2 \sigma_2 + r_3 \sigma_3}{2}=\frac{c I + \vec{r}\cdot\vec{\sigma}}{2}
+        \end{equation*}
+        
+        Since $(\sigma_i)_i$ are with trace zero, we have
+        \begin{equation*}
+            \tr(\rho)=\frac{c\ \tr(I)}{2}=c \implies c=1
+        \end{equation*}
+        
+        Similarly,
+        \begin{equation*}
+            \tr(\rho^2)=\tr(\frac{I+2\ \vec{r}\cdot\vec{\sigma}+\lvert \vec{r}\rvert^2 I}{4})=\frac{1+\lvert \vec{r}\rvert^2}{2} \implies \lvert \vec{r}\rvert\leq 1
+        \end{equation*}
+    \end{proof}
+    
+    \item
+    We have $\vec{r}=0$, since $(\sigma_i)_i$ are linearly independent.
+    
+    \item
+    \begin{proof}
+        $\rho$ is a pure state if and only if $\tr(\rho^2)=1$, i.e. $\lvert\vec{r}\rvert=1$.
+    \end{proof}
+    
+    \item
+    \begin{proof}
+        We simply have
+        \begin{align*}
+            \ket{\psi}\bra{\psi}
+            &= \cos^2\frac{\theta}{2}\ket{0}\bra{0}+\sin^2\frac{\theta}{2}\ket{1}\bra{1}+\cos\frac{\theta}{2}\sin\frac{\theta}{2}\left(e^{-i\varphi}\ket{0}\bra{1}+e^{i\varphi}\ket{1}\bra{0}\right) \\
+            &= \frac{1}{2}(I+\cos\theta \ \sigma_3)+\frac{\sin\theta}{2}(\cos\varphi\ \sigma_1+\sin\varphi\ \sigma_2) \\
+            &= \frac{I+(\cos\varphi\sin\theta, \sin\varphi\sin\theta, \cos\theta)\cdot\vec{\sigma}}{2} = \frac{I+\vec{r}\cdot\vec{\sigma}}{2}
+        \end{align*}
+        We see that $\vec{r}$ coincides indeed with the vector in the Bloch sphere.
+    \end{proof}
+\end{enumerate}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+    It is obvious that a Gram-Schmidt process with $\ket{\psi}$ as the initial vector builds a minimal ensemble for $\rho$. To prove the equality for every minimal ensemble $\{p_i,\ket{\psi_i}\}$ (not necessarily orthonormal!), we note the spectral decomposition of $\rho$ on its support as
+    \begin{equation*}
+        \rho=\sum_k \lambda_k\ket{k}\bra{k}
+    \end{equation*}
+    
+    So that
+    \begin{equation*}
+        \rho^{-1}=\sum_k\frac{1}{\lambda_k}\ket{k}\bra{k}
+    \end{equation*}
+    
+    Since the two ensembles generate both $\rho$, there exists a unitary matrix $u$ such that
+    \begin{equation*}
+        \ket{\tilde{\psi_i}}=\sum_k u_{i k}\ket{\tilde{k}}\iff \ket{\psi_i}=\sum_k u_{i k}\sqrt{\frac{\lambda_k}{p_i}}\ket{k}
+    \end{equation*}
+    
+    Therefore, we have
+    \begin{equation*}
+        \frac{1}{\braket{\psi_i\vert\rho^{-1}\vert\psi_i}}
+        = \frac{1}{\sum_k\frac{1}{\lambda_k}\braket{\psi_i\vert k}^2}=\frac{1}{\frac{1}{p_i} \sum_k u_{i k}^2}=\frac{1}{\frac{1}{p_i}}=p_i
+    \end{equation*}
+\end{proof}
+
+\subsection{The reduced density operator}
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+    We have
+    \begin{equation*}
+        \rho^A = \tr_B\left(\ket{a}\ket{b}\bra{b}\bra{a}\right) = \ket{a}\bra{a}\tr_B\left(\ket{b}\bra{b}\right) = \ket{a}\bra{a}
+    \end{equation*}
+    
+    So $\rho^A$ is a pure state.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+One should expect that $\rho=\frac{I}{2}$ for each qubit in each of the four Bell states.
+
+\end{document}

@@ -1,0 +1,105 @@
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+
+\setcounter{chapter}{5}
+\section{The quantum Fourier transform}
+
+\begin{exercise}
+\end{exercise}
+For arbitrary states $\ket{j}$ and $\ket{j^\prime}$, we have
+\[
+    \braket{j^\prime\vert j}\mapsto\frac{1}{N}\sum_{k,k^\prime}e^{2\pi i\frac{j k-j^\prime k^\prime}{N}}\braket{k^\prime\vert k}=\frac{1}{N}\sum_{k=0}^{N-1}\left(e^{2\pi i\frac{j-j^\prime}{N}}\right)^k=\delta_{j j^\prime}
+\]
+
+Hence the linear transformation is unitary.
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+We simple have
+\[
+    \ket{00\cdots0}\mapsto\frac{1}{\sqrt{2^n}}\sum_{k=0}^{2^n-1}\ket{k}=\left(\frac{\ket{0}+\ket{1}}{\sqrt{2}}\right)^{\otimes n}
+\]
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+\begin{proof}
+We denote by $c(var)$ the number of operations to obtain $var$.
+
+According to Equation (5.1), a direct evaluation gives
+\[
+    c(y)=c(\left(y_0,\cdots,y_{2^n-1}\right)^\intercal)\sim\sum_{k=0}^{2^n-1}\sum_{j=0}^{2^n-1}c(x_j e^{2\pi i j k 2^{-n}})\in\Theta(2^{2n})
+\]
+
+For the second question, from Equation (5.4) to (5.10)
+\begin{align*}
+    \ket{j}
+    &\mapsto 2^{-\frac{n}{2}}\bigotimes_{l=1}^n \left[\ket{0}+e^{2\pi i j 2^{-l}}\ket{1}\right] \\
+    &= 2^{-\frac{n}{2}}\bigotimes_{l=1}^{n-1} \left[\ket{0}+e^{2\pi i j 2^{-l}}\ket{1}\right] \ket{0} + 2^{-\frac{n}{2}}\bigotimes_{l=1}^{n-1} \left[\ket{0}+e^{2\pi i j 2^{-l}}\ket{1}\right] e^{2\pi i j 2^{-n}}\ket{1} \\
+    &= \frac{1}{\sqrt{2}}\left(2^{-\frac{n-1}{2}}\sum_{k=0}^{2^{n-1}-1}\left[e^{2\pi i j k 2^{-n+1}}\ket{k}\ket{0}\right]\right) + \frac{e^{2\pi i j 2^{-n}}}{\sqrt{2}}\left(2^{-\frac{n-1}{2}}\sum_{k=0}^{2^{n-1}-1}\left[e^{2\pi i j k 2^{-n+1}}\ket{k}\ket{1}\right]\right)
+\end{align*}
+
+We immediately have, as a classical discrete Fourier transform:
+\begin{align*}
+    y_k
+    &= 2^{-\frac{n}{2}}\sum_{j=0}^{2^n-1}x_j e^{2\pi i j k 2^{-n}}\\
+    &= 2^{-\frac{n}{2}}\sum_{j=0}^{2^{n-1}-1}x_{2j}e^{2\pi i(2j)k 2^{-n}}+2^{-\frac{n}{2}}\sum_{j=0}^{2^{n-1}-1}x_{2j+1}e^{2\pi i(2j+1)k 2^{-n}}\\
+    &= \frac{1}{\sqrt{2}}\left(2^{-\frac{n-1}{2}}\sum_{j=0}^{2^{n-1}-1}x_{2j}e^{2\pi i j k 2^{-n+1}}\right)+\frac{e^{2\pi i k 2^{-n}}}{\sqrt{2}}\left(2^{-\frac{n-1}{2}}\sum_{j=0}^{2^{n-1}-1}x_{2j+1}e^{2\pi i j k 2^{-n+1}}\right)
+\end{align*}
+where the first (resp. second) parentheses correspond to the discrete Fourier transform of the vector containing $2^{n-1}$ even (resp. add) terms of $x$. 
+
+If we note $c^f(n)$ the number of operations to obtain the discrete Fourier transform of a vector of length $n$, we immediately have 
+
+\[
+    c(y)=c^f(2^n)=2c^f(2^{n-1})+c_0 2^n = \cdots = c_0 n 2^n \in \Theta(n 2^n)
+\]
+where $c_0=2+c(\frac{1}{\sqrt{2}})+c(\frac{e^{2\pi i k 2^{-n}}}{\sqrt{2}})\in\Theta(1)$.
+\end{proof}
+
+\bigskip
+\begin{exercise}
+\end{exercise}
+Solving the equation
+\[
+    R_k=e^{i\alpha} R_z(\beta) R_y(\gamma) R_z(\delta)
+\]
+gives
+\[
+    \alpha=\frac{\pi}{2^k}, \gamma=0, \beta+\delta=\frac{\pi}{2^{k-1}}
+\]
+
+Let $\beta=\delta=\frac{\pi}{2^k}$, we have
+\[
+    A=R_z(\frac{\pi}{2^k}), B=R_z(-\frac{\pi}{2^k}), C=I
+\]
+satisfying $R_k=e^{i\alpha}A X B X C$ and $A B C=I$.
+
+Thus, we have
+\[
+    C^1(R_k)=
+    \begin{array}{c}\Qcircuit @C=1em @R=.7em {
+    & \ctrl{1} & \qw & \ctrl{1} & \gate{\Diag(1,e^{i\frac{\pi}{2^k}})} & \qw \\
+    & \targ & \gate{R_z(-\frac{\pi}{2^k})} & \targ & \gate{R_z(\frac{\pi}{2^k})} & \qw
+    }\end{array}
+\]
+
+\begin{exercise}
+\end{exercise}
+It suffices to reverse the circuit in Figure 5.1, which is evident since $R_k$ is diagonal.
+
+\bigskip
+\begin{exercise}[Approximate quantum Fourier transform]
+\end{exercise}
+\begin{proof}
+Suppose that we have $m\in\Theta(n^2)$ gates in each circuit, by decomposition we have
+\[
+    E(U,V)=E(\prod_{j=1}^m U_j,\prod_{j=1}^m V_j)\leq\sum_{j=1}^m E(U_j,V_j)\leq m\Delta\in\Theta(\frac{n^2}{p(n)})
+\]
+
+Therefore, $E(U,V)\in O(\frac{n^2}{p(n)})$.
+\end{proof}
+\begin{remark}
+We don't necessarily have $E(U,V)\in \Theta(\frac{n^2}{p(n)})$.
+\end{remark}
+\end{document}
